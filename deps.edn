@@ -4,4 +4,14 @@
         remus/remus {:mvn/version "0.2.2"}
         org.jsoup/jsoup {:mvn/version "1.11.3"}
         org.clojure/clojure {:mvn/version "1.11.1"}
-        org.slf4j/slf4j-simple {:mvn/version "2.0.0-alpha5"}}}
+        org.slf4j/slf4j-simple {:mvn/version "2.0.0-alpha5"}}
+
+ ;; I'd generally recommend moving the server only deps above into their own alias
+ ;; but I don't know how to make "bb dev" use that alias
+ ;; we don't need them for CLJS compilation, and they might cause conflicts
+ ;; works fine for this demo though
+ :aliases
+ {:client
+  {:extra-deps
+   {com.thheller/shadow-graft {:mvn/version "0.9.0"}
+    thheller/shadow-cljs {:mvn/version "2.24.1"}}}}}

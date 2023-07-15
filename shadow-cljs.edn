@@ -1,0 +1,7 @@
+{:deps {:aliases [:client]}
+ :builds
+ {:client
+  {:target :browser
+   :output-dir "resources/public/js"
+   :modules {:main {:init-fn com.eelchat.client/init}}
+   }}}

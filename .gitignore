@@ -10,3 +10,9 @@
 .clj-kondo/
 .lsp/
 .portal/
+.idea/
+.shadow-cljs/
+*.iml
+node_modules
+resources/public/css
+resources/public/js

@@ -1,0 +1,17 @@
+{
+  "name": "eelchat",
+  "version": "1.0.0",
+  "description": "This is the code for [the Biff tutorial](https://biffweb.com/docs/tutorial/build-a-chat-app/). See [the commits](https://github.com/jacobobryant/eelchat/commits/master) to view the code from a specific part of the tutorial.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@tailwindcss/forms": "^0.5.4",
+    "shadow-cljs": "^2.24.1",
+    "tailwindcss": "^3.3.3"
+  }
+}

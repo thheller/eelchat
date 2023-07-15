@@ -154,24 +154,16 @@
         href (str "/community/" (:xt/id community)
                   "/channel/" (:xt/id channel))]
     (ui/app-page
-     ctx
-     [:.border.border-neutral-600.p-3.bg-white.grow.flex-1.overflow-y-auto#messages
-      {:hx-ext "ws"
-       :ws-connect (str href "/connect")
-       :_ "on load or newMessage set my scrollTop to my scrollHeight"}
-      (map message-view (sort-by :msg/created-at msgs))]
-     [:.h-3]
-     (biff/form
-      {:hx-post href
-       :hx-target "#messages"
-       :hx-swap "beforeend"
-       :_ (str "on htmx:afterRequest"
-               " set <textarea/>'s value to ''"
-               " then send newMessage to #messages")
-       :class "flex"}
-      [:textarea.w-full#text {:name "text"}]
-      [:.w-2]
-      [:button.btn {:type "submit"} "Send"]))))
+      ctx
+      [:.border.border-neutral-600.p-3.bg-white.grow.flex-1.overflow-y-auto
+       {:id "messages"}
+       (map message-view (sort-by :msg/created-at msgs))]
+      [:.h-3]
+      [:form {:id "chat-form" :class "flex"}
+       [:textarea.w-full {:data-ref "text" :name "text"}]
+       [:.w-2]
+       [:button.btn {:type "submit"} "Send"]]
+      (ui/graft "channel-ui" :none {:href href}))))
 
 (defn connect [{:keys [com.eelchat/chat-clients]
                 {chan-id :xt/id} :channel
@@ -198,9 +190,7 @@
             :when (and (contains? doc :msg/text)
                        (nil? (xt/entity db-before (:xt/id doc))))
             :let [html (rum/render-static-markup
-                        [:div#messages {:hx-swap-oob "beforeend"}
-                         (message-view doc)
-                         [:div {:_ "init send newMessage to #messages then remove me"}]])]
+                         (message-view doc))]
             [mem-id client] (get @chat-clients (:msg/channel doc))
             :when (not= mem-id (:msg/mem doc))]
       (jetty/send! client html))))
